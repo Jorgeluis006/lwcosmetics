@@ -1,14 +1,19 @@
 import Link from 'next/link';
 import { getAllCategories } from '../../../../lib/db';
 
-// Revalidar cada 60 segundos
-export const revalidate = 60;
+// Forzar render dinámico para evitar fallos de build si la DB no responde
+export const dynamic = 'force-dynamic';
 
 export default async function ProductsByCategory({ params }: { params: { category: string } }) {
-  const categories = await getAllCategories();
+  let categories: any[] = [];
+  try {
+    categories = await getAllCategories();
+  } catch (e) {
+    categories = [];
+  }
   const category = categories.find((cat: any) => cat.name.toLowerCase() === params.category.toLowerCase());
   if (!category) {
-    return <div>Categoría no encontrada</div>;
+    return <div className="container">No pudimos cargar la categoría ahora mismo. Intenta más tarde.</div>;
   }
   return (
     <div className="container">

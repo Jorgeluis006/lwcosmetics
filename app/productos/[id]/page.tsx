@@ -4,11 +4,16 @@ import './detalle.css'
 import dynamic from 'next/dynamic'
 const AddToCartButton = dynamic(() => import('../../../components/AddToCartButton'), { ssr: false })
 
-// Revalidar cada 60 segundos
-export const revalidate = 60;
+// Forzar render dinámico para evitar fallos de build si la DB no responde
+export const dynamic = 'force-dynamic';
 
 export default async function ProductoDetalle({ params }: { params: { id: string } }) {
-  const product = await getProductById(Number(params.id));
+  let product: any = null;
+  try {
+    product = await getProductById(Number(params.id));
+  } catch (e) {
+    product = null;
+  }
   const prod: any = product;
   // product: { id, name, description, price, imageUrl, stock, categoryId, category: { id, name } }
 
@@ -25,7 +30,12 @@ export default async function ProductoDetalle({ params }: { params: { id: string
   const mainImage = product.imageUrl;
   const images = Array.isArray(prod.images) && prod.images.length > 0 ? prod.images : [mainImage];
 
-  const allProducts = await getAllProducts();
+  let allProducts: any[] = [];
+  try {
+    allProducts = await getAllProducts();
+  } catch (e) {
+    allProducts = [];
+  }
   const relatedProducts = allProducts
   .filter((p: any) => p.category && p.category.name === prod.category?.name && p.id !== prod.id)
     .slice(0, 4);

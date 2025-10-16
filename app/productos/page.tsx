@@ -2,15 +2,33 @@
 import Link from 'next/link';
 import { getAllProducts } from '../../lib/db';
 
-// Revalidar cada 60 segundos (ISR - Incremental Static Regeneration)
-export const revalidate = 60;
+// Forzar renderizado dinámico para evitar fallos de build si la DB no está accesible
+export const dynamic = 'force-dynamic';
 
 export default async function ProductosPage({
   searchParams,
 }: {
   searchParams: { buscar?: string }
 }) {
-  const allProducts = await getAllProducts();
+  let allProducts: any[] = [];
+  try {
+    allProducts = await getAllProducts();
+  } catch (e) {
+    // Si hay un error con la DB en producción, mostramos un estado vacío amistoso
+    return (
+      <div className="container">
+        <div className="category-header">
+          <h1 className="category-title">Todos Nuestros Productos</h1>
+          <p className="category-description">
+            No pudimos conectar con la base de datos en este momento. Intenta de nuevo más tarde.
+          </p>
+        </div>
+        <div style={{textAlign:'center',padding:'40px 0'}}>
+          <Link href="/" className="btn btn-primary">Volver al inicio</Link>
+        </div>
+      </div>
+    );
+  }
   
   // Filtrar productos si hay query de búsqueda
   const searchQuery = searchParams?.buscar?.toLowerCase() || '';
