@@ -2,7 +2,25 @@ node_modules/
 .next/
 dist/
 .env
+.env.local
+.env*.local
 *.log
 .DS_Store
 .vscode/
 coverage/
+
+# Archivos de credenciales (no subir)
+CREDENCIALES_*.txt
+*.credentials.txt
+
+# Build files
+out/
+build/
+
+# Database
+*.db
+*.db-journal
+prisma/*.db
+
+# Vercel
+.vercel

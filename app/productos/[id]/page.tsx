@@ -1,8 +1,8 @@
 import { getProductById, getAllProducts } from '../../../lib/db'
 import Link from 'next/link'
 import './detalle.css'
-import dynamic from 'next/dynamic'
-const AddToCartButton = dynamic(() => import('../../../components/AddToCartButton'), { ssr: false })
+import dynamicImport from 'next/dynamic'
+const AddToCartButton = dynamicImport(() => import('../../../components/AddToCartButton'), { ssr: false })
 
 // Forzar render dinámico para evitar fallos de build si la DB no responde
 export const dynamic = 'force-dynamic';
