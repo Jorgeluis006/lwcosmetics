@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LW Cosmetics Logo - Fondo Negro</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #f0f0f0;
+            font-family: 'Georgia', serif;
+        }
+        .logo-container {
+            background: #000000;
+            width: 873px;
+            height: 304px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            border: 3px solid #333;
+        }
+        .logo-text {
+            color: #FFFFFF;
+            font-size: 120px;
+            font-weight: 300;
+            letter-spacing: 15px;
+            margin: 0;
+            text-align: center;
+            line-height: 1.2;
+        }
+        .logo-subtitle {
+            color: #CCCCCC;
+            font-size: 42px;
+            font-weight: 300;
+            letter-spacing: 18px;
+            margin: 10px 0 0 0;
+            text-align: center;
+        }
+        .instructions {
+            margin-top: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            max-width: 873px;
+        }
+        .instructions h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .instructions ol {
+            line-height: 1.6;
+        }
+        .instructions code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-container" id="logo">
+        <div class="logo-text">LW COSMETICS</div>
+        <div class="logo-subtitle">MAQUILLAJE</div>
+    </div>
+    
+    <div class="instructions">
+        <h3>📸 Instrucciones para capturar el logo:</h3>
+        <ol>
+            <li>Abre esta página en tu navegador</li>
+            <li>Haz clic derecho sobre el logo negro de arriba</li>
+            <li>Selecciona "Inspeccionar" o "Inspeccionar elemento"</li>
+            <li>En las herramientas de desarrollo, haz clic derecho sobre el elemento <code>&lt;div class="logo-container"&gt;</code></li>
+            <li>Selecciona "Capturar screenshot del nodo" o usa una extensión de captura de pantalla</li>
+            <li>Guarda la imagen como <code>lw-cosmetics-black.png</code> en la carpeta <code>public/images/</code></li>
+        </ol>
+        <p><strong>Alternativa:</strong> Puedes usar la herramienta de recorte de Windows (Win + Shift + S) para capturar solo el logo negro.</p>
+    </div>
+
+    <script>
+        // Botón alternativo para descargar usando html2canvas si lo prefieres
+        console.log('Logo listo para capturar. Dimensiones: 873x304px');
+    </script>
+</body>
+</html>

@@ -106,8 +106,16 @@ export default function Header(){
                   <div style={{background:'#fff',borderRadius:16,padding:32,boxShadow:'0 4px 24px #c026d344',minWidth:320,textAlign:'center',fontFamily:'var(--font-title)',fontSize:'1.3rem',color:'#7c3aed',position:'relative'}} onClick={e=>e.stopPropagation()}>
                     <div style={{fontWeight:600,fontSize:'1.5rem',marginBottom:12}}>Contacto</div>
                     <div>Luisa Escobar</div>
-                    <div style={{margin:'8px 0'}}>📞 300 3476918</div>
-                    <button style={{marginTop:18,padding:'8px 24px',borderRadius:8,border:'none',background:'#c026d3',color:'#fff',fontWeight:500,fontSize:'1.1rem',cursor:'pointer'}} onClick={()=>setShowContacto(false)}>Cerrar</button>
+                    <div style={{margin:'8px 0'}}>📞 312 423 9687</div>
+                    <a 
+                      href="https://wa.me/573124239687" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      style={{display:'inline-block',marginTop:18,padding:'8px 24px',borderRadius:8,border:'none',background:'#25D366',color:'#fff',fontWeight:500,fontSize:'1.1rem',cursor:'pointer',textDecoration:'none'}}
+                    >
+                      💬 Enviar WhatsApp
+                    </a>
+                    <button style={{marginTop:12,padding:'8px 24px',borderRadius:8,border:'none',background:'#c026d3',color:'#fff',fontWeight:500,fontSize:'1.1rem',cursor:'pointer',display:'block',width:'100%'}} onClick={()=>setShowContacto(false)}>Cerrar</button>
                   </div>
                 </div>
               )}

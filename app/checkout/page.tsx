@@ -190,8 +190,20 @@ export default function CheckoutPage() {
                   <span className="amount-label">Valor a pagar:</span>
                   <span className="amount-value">${getTotalPrice().toLocaleString('es-CO')}</span>
                 </div>
+                <div style={{ marginTop: '15px', padding: '15px', backgroundColor: '#f8f9fa', borderRadius: '8px', borderLeft: '4px solid #0066cc' }}>
+                  <p style={{ fontWeight: 'bold', marginBottom: '10px', color: '#0066cc' }}>Otras Opciones de Pago:</p>
+                  <div style={{ marginBottom: '10px' }}>
+                    <p style={{ margin: '5px 0' }}><strong>💳 Nequi - Llave:</strong> 300 347 6918</p>
+                    <p style={{ margin: '5px 0', fontSize: '14px', color: '#666' }}>Luisa Escobar</p>
+                  </div>
+                  <div style={{ borderTop: '1px solid #dee2e6', paddingTop: '10px' }}>
+                    <p style={{ margin: '5px 0' }}><strong>🏦 Davivienda - Cuenta de Ahorros:</strong></p>
+                    <p style={{ margin: '5px 0', fontSize: '16px', fontWeight: 'bold', color: '#333' }}>0550002400124968</p>
+                    <p style={{ margin: '5px 0', fontSize: '14px', color: '#666' }}>Luisa Escobar</p>
+                  </div>
+                </div>
                 <p className="nequi-note">
-                  ⚠️ Importante: Una vez realices el pago, envía el comprobante por WhatsApp al mismo número para confirmar tu pedido.
+                  ⚠️ Importante: Una vez realices el pago, envía el comprobante por WhatsApp al <strong>312 423 9687</strong> para confirmar tu pedido.
                 </p>
               </div>
             </div>

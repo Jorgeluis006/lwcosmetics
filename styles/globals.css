@@ -1,3 +1,13 @@
+/* Optimizaciones de performance */
+* {
+  box-sizing: border-box;
+}
+
+/* Mejoras de rendimiento para navegación */
+html {
+  scroll-behavior: smooth;
+}
+
 /* Tipografía global - usa variables para poder cambiar la fuente en un solo lugar */
 :root {
   /* Cambia estos valores cuando definas tu tipografía */
