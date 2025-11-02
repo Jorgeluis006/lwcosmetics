@@ -97,6 +97,7 @@ export default function AdminPage() {
     try {
       const response = await fetch('/api/admin/categories');
       const data = await response.json();
+      console.log('Categorías cargadas:', data);
       setCategories(data);
     } catch (error) {
       console.error('Error al cargar categorías:', error);
@@ -341,7 +342,7 @@ export default function AdminPage() {
                 </label>
 
                 <label>
-                  Categoría
+                  Categoría {categories.length > 0 && `(${categories.length} disponibles)`}
                   <select
                     name="categoryId"
                     value={form.categoryId}
