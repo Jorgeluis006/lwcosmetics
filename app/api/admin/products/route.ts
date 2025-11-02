@@ -25,15 +25,16 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, description, price, imageUrl, images, categoryId, sku, barcode, reference } = body;
+    const { name, description, price, imageUrl, images, colors, categoryId, sku, barcode, reference } = body;
 
-    const product = await prisma.product.create({
+    const product: any = await prisma.product.create({
       data: {
         name,
         description,
         price,
         imageUrl,
         images: Array.isArray(images) ? images : [],
+        colors: Array.isArray(colors) ? colors : [],
         categoryId,
         sku: sku || null,
         barcode: barcode || null,
