@@ -162,9 +162,15 @@ export default function Header(){
                       📦 Mis Pedidos
                     </Link>
                     {user.isAdmin && (
-                      <Link href="/admin/pedidos" className="user-dropdown-item" onClick={() => setShowUserMenu(false)}>
-                        ⚙️ Admin Panel
-                      </Link>
+                      <>
+                        <div className="user-dropdown-divider"></div>
+                        <Link href="/admin" className="user-dropdown-item" onClick={() => setShowUserMenu(false)}>
+                          ➕ Admin Productos
+                        </Link>
+                        <Link href="/admin/pedidos" className="user-dropdown-item" onClick={() => setShowUserMenu(false)}>
+                          🛍️ Admin Pedidos
+                        </Link>
+                      </>
                     )}
                     <div className="user-dropdown-divider"></div>
                     <button className="user-dropdown-item logout-btn" onClick={handleLogout}>

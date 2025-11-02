@@ -190,9 +190,14 @@ export default function MiPerfilPage() {
           </Link>
           <Link href="/productos" className="btn btn-primary">Ver Productos</Link>
           {user?.isAdmin && (
-            <Link href="/admin/pedidos" className="btn btn-primary" style={{background: '#7c3aed'}}>
-              🛍️ Admin Pedidos
-            </Link>
+            <>
+              <Link href="/admin" className="btn btn-primary" style={{background: '#c026d3'}}>
+                ➕ Admin Productos
+              </Link>
+              <Link href="/admin/pedidos" className="btn btn-primary" style={{background: '#7c3aed'}}>
+                🛍️ Admin Pedidos
+              </Link>
+            </>
           )}
           <button onClick={handleLogout} className="btn btn-secondary">Cerrar Sesión</button>
         </div>
