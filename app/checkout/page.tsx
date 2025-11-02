@@ -41,19 +41,29 @@ export default function CheckoutPage() {
     e.preventDefault();
     setProcesando(true);
 
-    // Descontar stock en la base de datos
     try {
-      await fetch('/api/products/decrement-stock', {
+      // PASO 1: Validar y descontar stock
+      const stockResponse = await fetch('/api/products/decrement-stock', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          items: cart.map(item => ({ id: item.id, quantity: item.quantity }))
+          items: cart.map(item => ({ 
+            id: Number(item.id), 
+            quantity: item.quantity 
+          }))
         })
       });
-      // Guardar pedido en la base de datos
+
+      if (!stockResponse.ok) {
+        const errorData = await stockResponse.json();
+        throw new Error(errorData.error || 'Error al validar stock');
+      }
+
+      // PASO 2: Crear el pedido
       const userData = localStorage.getItem('user');
       const user = userData ? JSON.parse(userData) : null;
-      const response = await fetch('/api/orders', {
+      
+      const orderResponse = await fetch('/api/orders', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -71,26 +81,28 @@ export default function CheckoutPage() {
         })
       });
 
-      if (response.ok) {
-        setPagoConfirmado(true);
-        setProcesando(false);
-        
-        // Redirigir a Mis Pedidos si está logueado, sino a inicio
-        setTimeout(() => {
-          clearCart();
-          if (user) {
-            router.push('/mis-pedidos');
-          } else {
-            router.push('/');
-          }
-        }, 3000);
-      } else {
-        throw new Error('Error al crear pedido');
+      if (!orderResponse.ok) {
+        throw new Error('Error al crear el pedido');
       }
-    } catch (err) {
+
+      // PASO 3: Todo OK - Mostrar confirmación
+      setPagoConfirmado(true);
+      setProcesando(false);
+      
+      // Redirigir después de 3 segundos
+      setTimeout(() => {
+        clearCart();
+        if (user) {
+          router.push('/mis-pedidos');
+        } else {
+          router.push('/');
+        }
+      }, 3000);
+      
+    } catch (err: any) {
       console.error('Error al procesar pedido:', err);
       setProcesando(false);
-      alert('Error al procesar el pedido. Por favor intenta de nuevo.');
+      alert(err.message || 'Error al procesar el pedido. Por favor intenta de nuevo.');
     }
   }
 
