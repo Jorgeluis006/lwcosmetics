@@ -47,13 +47,16 @@ model User {
 // Modelo de pedido
 model Order {
   id         Int        @id @default(autoincrement())
-  user       User       @relation(fields: [userId], references: [id])
-  userId     Int
+  user       User?      @relation(fields: [userId], references: [id])
+  userId     Int?
   nombre     String
   direccion  String
   ciudad     String
   telefono   String
+  total      Float      @default(0)
+  status     String     @default("pendiente") // pendiente, confirmado, cancelado, enviado, entregado
   createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
   items      OrderItem[]
 }
 

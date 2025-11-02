@@ -53,7 +53,7 @@ export default function CheckoutPage() {
       // Guardar pedido en la base de datos
       const userData = localStorage.getItem('user');
       const user = userData ? JSON.parse(userData) : null;
-      await fetch('/api/orders/create', {
+      const response = await fetch('/api/orders', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -69,17 +69,28 @@ export default function CheckoutPage() {
           }))
         })
       });
-    } catch (err) {}
 
-    // Simular envío del pedido
-    setTimeout(() => {
-      setPagoConfirmado(true);
+      if (response.ok) {
+        setPagoConfirmado(true);
+        setProcesando(false);
+        
+        // Redirigir a Mis Pedidos si está logueado, sino a inicio
+        setTimeout(() => {
+          clearCart();
+          if (user) {
+            router.push('/mis-pedidos');
+          } else {
+            router.push('/');
+          }
+        }, 3000);
+      } else {
+        throw new Error('Error al crear pedido');
+      }
+    } catch (err) {
+      console.error('Error al procesar pedido:', err);
       setProcesando(false);
-      setTimeout(() => {
-        clearCart();
-        router.push('/');
-      }, 3000);
-    }, 1500);
+      alert('Error al procesar el pedido. Por favor intenta de nuevo.');
+    }
   }
 
   if (cart.length === 0) {
