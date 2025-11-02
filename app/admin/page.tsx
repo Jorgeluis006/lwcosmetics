@@ -34,6 +34,7 @@ export default function AdminPage() {
   price: '',
   imageUrl: '',
   images: [''],
+  colors: [''],
   stock: '',
   categoryId: '',
   sku: '',
@@ -112,6 +113,11 @@ export default function AdminPage() {
       const newImages = [...form.images];
       newImages[idx] = value;
       setForm({ ...form, images: newImages });
+    } else if (name.startsWith('colors[')) {
+      const idx = parseInt(name.match(/colors\[(\d+)\]/)?.[1] || '0');
+      const newColors = [...form.colors];
+      newColors[idx] = value;
+      setForm({ ...form, colors: newColors });
     } else {
       setForm({ ...form, [name]: value });
     }
@@ -126,6 +132,7 @@ export default function AdminPage() {
       price: parseFloat(form.price),
       imageUrl: form.imageUrl,
       images: form.images.filter((img: string) => img.trim() !== ''),
+      colors: form.colors.filter((color: string) => color.trim() !== ''),
       stock: parseInt(form.stock),
       categoryId: parseInt(form.categoryId),
       sku: form.sku || null,
@@ -154,7 +161,7 @@ export default function AdminPage() {
       
   setShowForm(false);
   setEditingProduct(null);
-  setForm({ name: '', description: '', price: '', imageUrl: '', images: [''], stock: '', categoryId: '', sku: '', barcode: '', reference: '' });
+  setForm({ name: '', description: '', price: '', imageUrl: '', images: [''], colors: [''], stock: '', categoryId: '', sku: '', barcode: '', reference: '' });
       loadProducts();
     } catch (error) {
       alert('Error al guardar el producto');
@@ -183,6 +190,7 @@ export default function AdminPage() {
       price: product.price.toString(),
       imageUrl: product.imageUrl,
       images: product.images && product.images.length > 0 ? product.images : [''],
+      colors: (product as any).colors && (product as any).colors.length > 0 ? (product as any).colors : [''],
       stock: product.stock?.toString() || '',
       categoryId: product.category.id.toString(),
       sku: (product as any).sku || '',
@@ -217,7 +225,7 @@ export default function AdminPage() {
             onClick={() => {
               setShowForm(!showForm);
               setEditingProduct(null);
-              setForm({ name: '', description: '', price: '', imageUrl: '', images: [''], stock: '', categoryId: '', sku: '', barcode: '', reference: '' });
+              setForm({ name: '', description: '', price: '', imageUrl: '', images: [''], colors: [''], stock: '', categoryId: '', sku: '', barcode: '', reference: '' });
             }}
             className="btn btn-primary"
           >
@@ -252,6 +260,26 @@ export default function AdminPage() {
                     </div>
                   ))}
                   <button type="button" onClick={() => setForm({ ...form, images: [...form.images, ''] })} style={{ marginTop: 4 }}>+ Agregar imagen</button>
+                </label>
+                <label>
+                  Colores disponibles
+                  {form.colors.map((color: string, idx: number) => (
+                    <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
+                      <input
+                        type="text"
+                        name={`colors[${idx}]`}
+                        value={color}
+                        onChange={handleChange}
+                        placeholder={`Ej: Rojo, #FF0000, etc.`}
+                        style={{ flex: 1 }}
+                      />
+                      <button type="button" onClick={() => {
+                        const newColors = form.colors.filter((_, i) => i !== idx);
+                        setForm({ ...form, colors: newColors.length ? newColors : [''] });
+                      }} style={{ color: '#BA8E7A', fontWeight: 700 }}>🗑️</button>
+                    </div>
+                  ))}
+                  <button type="button" onClick={() => setForm({ ...form, colors: [...form.colors, ''] })} style={{ marginTop: 4 }}>+ Agregar color</button>
                 </label>
                 <label>
                   Cantidad disponible (stock)

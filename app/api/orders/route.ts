@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
     const total = items.reduce((sum: number, item: any) => sum + (item.price * item.quantity), 0);
     
     // Crear el pedido
-    const order = await prisma.order.create({
+    const order: any = await prisma.order.create({
       data: {
         userId: userId || null,
         nombre,
@@ -65,7 +65,8 @@ export async function POST(request: NextRequest) {
           create: items.map((item: any) => ({
             productId: item.productId,
             quantity: item.quantity,
-            price: item.price
+            price: item.price,
+            color: item.color || null
           }))
         }
       },

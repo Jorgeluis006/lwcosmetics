@@ -241,6 +241,16 @@ export default function MisPedidosPage() {
                       />
                       <div style={{ flex: 1 }}>
                         <div style={{ fontWeight: 500 }}>{item.product.name}</div>
+                        {(item as any).color && (
+                          <div style={{ 
+                            fontSize: '0.85rem', 
+                            color: '#A67356',
+                            fontWeight: 600,
+                            marginTop: '2px'
+                          }}>
+                            Color: {(item as any).color}
+                          </div>
+                        )}
                         <div style={{ fontSize: '0.85rem', color: '#6b7280' }}>
                           Cantidad: {item.quantity} × ${item.price.toLocaleString('es-CO')}
                         </div>

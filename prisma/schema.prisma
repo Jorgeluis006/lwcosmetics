@@ -17,6 +17,7 @@ model Product {
   price       Float
   imageUrl    String
   images      String[]
+  colors      String[] @default([])
   sku         String?
   barcode     String?
   reference   String?
@@ -70,4 +71,5 @@ model OrderItem {
   productId Int
   quantity  Int
   price     Float
+  color     String?
 }

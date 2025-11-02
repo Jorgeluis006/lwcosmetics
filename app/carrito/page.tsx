@@ -30,8 +30,8 @@ export default function CarritoPage() {
       <div className="carrito-content">
         {/* Lista de productos */}
         <div className="carrito-productos">
-          {cart.map((item) => (
-            <div key={item.id} className="carrito-item">
+          {cart.map((item, index) => (
+            <div key={`${item.id}-${item.selectedColor || 'default'}-${index}`} className="carrito-item">
               <Link href={`/productos/${item.id}`} className="item-imagen">
                 <img src={item.imageUrl} alt={item.name} />
               </Link>
@@ -40,20 +40,30 @@ export default function CarritoPage() {
                 <Link href={`/productos/${item.id}`}>
                   <h3>{item.name}</h3>
                 </Link>
+                {item.selectedColor && (
+                  <p style={{ 
+                    fontSize: '0.9rem', 
+                    color: '#A67356', 
+                    fontWeight: 600,
+                    marginTop: '4px'
+                  }}>
+                    Color: {item.selectedColor}
+                  </p>
+                )}
                 <p className="item-precio">${item.price.toLocaleString('es-CO')}</p>
                 <p className="item-descripcion">{item.description}</p>
               </div>
 
               <div className="item-cantidad">
                 <button 
-                  onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                  onClick={() => updateQuantity(item.id, item.quantity - 1, item.selectedColor)}
                   className="cantidad-btn"
                 >
                   -
                 </button>
                 <span className="cantidad-display">{item.quantity}</span>
                 <button 
-                  onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                  onClick={() => updateQuantity(item.id, item.quantity + 1, item.selectedColor)}
                   className="cantidad-btn"
                   disabled={item.quantity >= item.stock}
                 >
@@ -66,7 +76,7 @@ export default function CarritoPage() {
                   ${(item.price * item.quantity).toLocaleString('es-CO')}
                 </p>
                 <button 
-                  onClick={() => removeFromCart(item.id)}
+                  onClick={() => removeFromCart(item.id, item.selectedColor)}
                   className="btn-eliminar"
                   title="Eliminar producto"
                 >

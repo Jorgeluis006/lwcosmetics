@@ -76,7 +76,8 @@ export default function CheckoutPage() {
           items: cart.map(item => ({
             productId: Number(item.id),
             quantity: item.quantity,
-            price: item.price
+            price: item.price,
+            color: item.selectedColor || null
           }))
         })
       });
