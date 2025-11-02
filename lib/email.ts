@@ -122,7 +122,7 @@ export async function sendWelcomeEmail(name: string, email: string) {
               <p>Explora nuestro catálogo y encuentra los mejores productos para ti.</p>
               
               <center>
-                <a href="${process.env.NEXT_PUBLIC_URL || 'http://localhost:3000'}/productos" class="button">Ver Productos</a>
+                <a href="https://lwcosmetics.vercel.app/productos" class="button">Ver Productos</a>
               </center>
 
               <p>Si tienes alguna pregunta, contáctanos:</p>
