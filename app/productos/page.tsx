@@ -1,6 +1,8 @@
 
 import Link from 'next/link';
 import { getAllProducts } from '../../lib/db';
+import dynamicImport from 'next/dynamic'
+const ProductCard = dynamicImport(() => import('../../components/ProductCard'), { ssr: false })
 
 // Forzar renderizado dinámico para evitar fallos de build si la DB no está accesible
 export const dynamic = 'force-dynamic';
@@ -65,24 +67,10 @@ export default async function ProductosPage({
         </div>
       ) : (
         <div className="products-grid">
-  {products.map((product: any) => (
-          <div key={product.id} className="product-card modern-card">
-            <div className="product-img-wrap">
-              <img src={product.imageUrl || (product as any).image} alt={product.name} className="product-img" />
-              <button className="fav-btn" title="Favorito">♡</button>
-            </div>
-            <div className="product-info">
-              <h3>{product.name}</h3>
-              <p className="product-price">${product.price.toLocaleString('es-CO')}</p>
-              <div className="product-actions">
-                <Link href={`/productos/${product.id}`} className="btn btn-sm btn-primary">
-                  👁️ Ver detalles
-                </Link>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+          {products.map((product: any) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
       )}
     </div>
   );
