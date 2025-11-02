@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
+import { sendOrderConfirmationEmail } from '../../../lib/email';
 
 const prisma = new PrismaClient();
 
@@ -41,7 +42,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { userId, nombre, direccion, ciudad, telefono, items } = body;
+    const { userId, nombre, direccion, ciudad, telefono, items, userEmail } = body;
     
     if (!nombre || !direccion || !ciudad || !telefono || !Array.isArray(items)) {
       return NextResponse.json({ error: 'Datos incompletos' }, { status: 400 });
@@ -73,9 +74,23 @@ export async function POST(request: NextRequest) {
           include: {
             product: true
           }
-        }
+        },
+        user: true
       }
     });
+    
+    // Enviar correo de confirmación
+    const emailToSend = userEmail || order.user?.email;
+    if (emailToSend) {
+      await sendOrderConfirmationEmail(
+        nombre,
+        emailToSend,
+        order.id,
+        order.items,
+        total,
+        { direccion, ciudad, telefono }
+      );
+    }
     
     return NextResponse.json(order);
   } catch (error) {

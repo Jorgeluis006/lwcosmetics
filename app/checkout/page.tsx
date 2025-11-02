@@ -58,6 +58,7 @@ export default function CheckoutPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           userId: user?.id || null,
+          userEmail: user?.email || null,
           nombre: form.nombre,
           direccion: form.direccion,
           ciudad: form.ciudad,
