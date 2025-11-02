@@ -79,17 +79,22 @@ export async function POST(request: NextRequest) {
       }
     });
     
-    // Enviar correo de confirmación
+    // Enviar correo de confirmación (sin bloquear la creación del pedido si falla)
     const emailToSend = userEmail || order.user?.email;
     if (emailToSend) {
-      await sendOrderConfirmationEmail(
-        nombre,
-        emailToSend,
-        order.id,
-        order.items,
-        total,
-        { direccion, ciudad, telefono }
-      );
+      try {
+        await sendOrderConfirmationEmail(
+          nombre,
+          emailToSend,
+          order.id,
+          order.items,
+          total,
+          { direccion, ciudad, telefono }
+        );
+        console.log('✅ Correo de confirmación enviado a:', emailToSend);
+      } catch (emailError) {
+        console.error('❌ Error al enviar correo de confirmación:', emailError);
+      }
     }
     
     return NextResponse.json(order);

@@ -38,8 +38,13 @@ export async function POST(request: NextRequest) {
       }
     });
 
-    // Enviar correo de bienvenida
-    await sendWelcomeEmail(user.name, user.email);
+    // Enviar correo de bienvenida (sin bloquear el registro si falla)
+    try {
+      await sendWelcomeEmail(user.name, user.email);
+      console.log('✅ Correo de bienvenida enviado a:', user.email);
+    } catch (emailError) {
+      console.error('❌ Error al enviar correo de bienvenida:', emailError);
+    }
 
     return NextResponse.json({
       success: true,
