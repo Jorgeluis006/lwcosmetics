@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useState, useRef, useEffect } from 'react'
 import { useCart } from '../context/CartContext'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 
 export default function Header(){
   const [showCategorias, setShowCategorias] = useState(false)
@@ -15,14 +15,47 @@ export default function Header(){
   const userMenuRef = useRef<HTMLDivElement>(null)
   const { getTotalItems } = useCart()
   const router = useRouter()
+  const pathname = usePathname()
 
-  useEffect(() => {
-    // Cargar usuario del localStorage
+  // Función para cargar usuario del localStorage
+  const loadUser = () => {
     const userData = localStorage.getItem('user')
     if (userData) {
       setUser(JSON.parse(userData))
+    } else {
+      setUser(null)
+    }
+  }
+
+  useEffect(() => {
+    // Cargar usuario inicialmente
+    loadUser()
+
+    // Escuchar cambios en localStorage (cuando se actualiza desde otra pestaña o componente)
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'user') {
+        loadUser()
+      }
+    }
+
+    // Escuchar evento personalizado para actualizaciones del mismo tab
+    const handleUserUpdate = () => {
+      loadUser()
+    }
+
+    window.addEventListener('storage', handleStorageChange)
+    window.addEventListener('userUpdated', handleUserUpdate)
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange)
+      window.removeEventListener('userUpdated', handleUserUpdate)
     }
   }, [])
+
+  // Recargar usuario cada vez que cambia la ruta
+  useEffect(() => {
+    loadUser()
+  }, [pathname])
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -69,6 +102,8 @@ export default function Header(){
     localStorage.removeItem('user')
     setUser(null)
     setShowUserMenu(false)
+    // Disparar evento para que otros componentes se actualicen
+    window.dispatchEvent(new Event('userUpdated'))
     router.push('/')
   }
 

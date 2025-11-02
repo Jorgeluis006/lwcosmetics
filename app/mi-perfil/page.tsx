@@ -71,6 +71,8 @@ export default function MiPerfilPage() {
           // Actualizar localStorage
           localStorage.setItem('user', JSON.stringify(data.user));
           setUser(data.user);
+          // Disparar evento para que el Header se actualice
+          window.dispatchEvent(new Event('userUpdated'));
           alert('Foto de perfil actualizada correctamente');
         } else {
           throw new Error('Error al subir imagen');
@@ -102,6 +104,8 @@ export default function MiPerfilPage() {
         localStorage.setItem('user', JSON.stringify(data.user));
         setUser(data.user);
         setPreviewImage(null);
+        // Disparar evento para que el Header se actualice
+        window.dispatchEvent(new Event('userUpdated'));
         alert('Foto de perfil eliminada');
       } else {
         throw new Error('Error al eliminar imagen');

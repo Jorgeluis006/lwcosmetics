@@ -28,6 +28,8 @@ export default function LoginPage() {
       if (response.ok) {
         // Guardar datos del usuario en localStorage
         localStorage.setItem('user', JSON.stringify(data.user));
+        // Disparar evento para que el Header se actualice
+        window.dispatchEvent(new Event('userUpdated'));
         setMensaje('¡Login exitoso!');
         
         // Redirigir al perfil
