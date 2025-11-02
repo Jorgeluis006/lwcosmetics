@@ -798,16 +798,15 @@ body {
 }
 
 .user-avatar-img {
-  position: absolute;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: 2;
 }
 
 .user-avatar-initials {
-  position: absolute;
-  z-index: 1;
+  font-size: 14px;
+  font-weight: 700;
+  color: white;
 }
 
 .user-avatar:hover {
@@ -896,4 +895,101 @@ body {
 
 .user-dropdown-item.logout-btn:hover {
   background: #ffebee;
+}
+
+/* Estilos para subir foto de perfil */
+.perfil-avatar-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.perfil-avatar-upload {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--color-light);
+  box-shadow: 0 4px 12px rgba(166, 115, 86, 0.2);
+  transition: all 0.3s ease;
+}
+
+.perfil-avatar-upload:hover {
+  transform: scale(1.05);
+  border-color: var(--color-secondary);
+}
+
+.perfil-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.perfil-avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.perfil-avatar-initials {
+  font-size: 48px;
+  font-weight: 700;
+  color: white;
+}
+
+.perfil-avatar-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  color: white;
+}
+
+.perfil-avatar-upload:hover .perfil-avatar-overlay {
+  opacity: 1;
+}
+
+.perfil-avatar-overlay span:first-child {
+  font-size: 32px;
+  margin-bottom: 4px;
+}
+
+.perfil-avatar-text {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.btn-remove-image {
+  padding: 6px 12px;
+  background: #d32f2f;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.btn-remove-image:hover {
+  background: #b71c1c;
+}
+
+.btn-remove-image:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }

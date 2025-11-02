@@ -4,7 +4,6 @@ import Link from 'next/link'
 import { useState, useRef, useEffect } from 'react'
 import { useCart } from '../context/CartContext'
 import { useRouter } from 'next/navigation'
-import CryptoJS from 'crypto-js'
 
 export default function Header(){
   const [showCategorias, setShowCategorias] = useState(false)
@@ -82,13 +81,6 @@ export default function Header(){
       .slice(0, 2)
   }
 
-  function getGravatarUrl(email: string) {
-    // Gravatar usa MD5 hash del email en minúsculas
-    const hash = CryptoJS.MD5(email.toLowerCase().trim()).toString()
-    // s=80 es el tamaño, d=mp usa un avatar por defecto
-    return `https://www.gravatar.com/avatar/${hash}?s=80&d=mp`
-  }
-
   return (
     <>
       <div className="topbar">
@@ -146,15 +138,15 @@ export default function Header(){
                   onClick={() => setShowUserMenu(!showUserMenu)}
                   title={user.name}
                 >
-                  <img 
-                    src={getGravatarUrl(user.email)} 
-                    alt={user.name}
-                    className="user-avatar-img"
-                    onError={(e) => {
-                      e.currentTarget.style.display = 'none'
-                    }}
-                  />
-                  <span className="user-avatar-initials">{getInitials(user.name)}</span>
+                  {user.profileImage ? (
+                    <img 
+                      src={user.profileImage} 
+                      alt={user.name}
+                      className="user-avatar-img"
+                    />
+                  ) : (
+                    <span className="user-avatar-initials">{getInitials(user.name)}</span>
+                  )}
                 </div>
                 {showUserMenu && (
                   <div className="user-dropdown">
