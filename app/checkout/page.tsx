@@ -64,7 +64,7 @@ export default function CheckoutPage() {
           ciudad: form.ciudad,
           telefono: form.telefono,
           items: cart.map(item => ({
-            id: item.id,
+            productId: Number(item.id),
             quantity: item.quantity,
             price: item.price
           }))

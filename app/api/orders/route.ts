@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
         status: 'pendiente',
         items: {
           create: items.map((item: any) => ({
-            productId: Number(item.id),
+            productId: item.productId,
             quantity: item.quantity,
             price: item.price
           }))
