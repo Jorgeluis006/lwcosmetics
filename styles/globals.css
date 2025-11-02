@@ -771,3 +771,116 @@ body {
     gap: 4px;
     padding: 4px 2px;
   }
+}
+
+/* Estilos para avatar de usuario */
+.user-avatar-container {
+  position: relative;
+  display: inline-block;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid var(--color-light);
+  box-shadow: 0 2px 8px rgba(166, 115, 86, 0.2);
+  user-select: none;
+}
+
+.user-avatar:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(166, 115, 86, 0.3);
+  border-color: var(--color-secondary);
+}
+
+.user-dropdown {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  min-width: 220px;
+  z-index: 1000;
+  overflow: hidden;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.user-dropdown-header {
+  padding: 16px;
+  background: linear-gradient(135deg, var(--color-light), var(--color-medium));
+  border-bottom: 1px solid var(--color-medium);
+}
+
+.user-dropdown-name {
+  font-weight: 700;
+  color: var(--color-primary);
+  font-size: 15px;
+  margin-bottom: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.user-dropdown-email {
+  font-size: 12px;
+  color: var(--color-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.user-dropdown-divider {
+  height: 1px;
+  background: var(--color-light);
+  margin: 8px 0;
+}
+
+.user-dropdown-item {
+  display: block;
+  padding: 12px 16px;
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  font-size: 14px;
+  background: white;
+  border: none;
+  width: 100%;
+  text-align: left;
+  font-weight: 600;
+}
+
+.user-dropdown-item:hover {
+  background: var(--color-light);
+  padding-left: 20px;
+}
+
+.user-dropdown-item.logout-btn {
+  color: #d32f2f;
+}
+
+.user-dropdown-item.logout-btn:hover {
+  background: #ffebee;
+}

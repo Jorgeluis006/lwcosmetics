@@ -8,18 +8,32 @@ import { useRouter } from 'next/navigation'
 export default function Header(){
   const [showCategorias, setShowCategorias] = useState(false)
   const [showContacto, setShowContacto] = useState(false)
+  const [showUserMenu, setShowUserMenu] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
+  const [user, setUser] = useState<any>(null)
   const dropdownRef = useRef<HTMLDivElement>(null)
+  const userMenuRef = useRef<HTMLDivElement>(null)
   const { getTotalItems } = useCart()
   const router = useRouter()
+
+  useEffect(() => {
+    // Cargar usuario del localStorage
+    const userData = localStorage.getItem('user')
+    if (userData) {
+      setUser(JSON.parse(userData))
+    }
+  }, [])
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setShowCategorias(false)
       }
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+        setShowUserMenu(false)
+      }
     }
-    if (showCategorias) {
+    if (showCategorias || showUserMenu) {
       document.addEventListener('mousedown', handleClickOutside)
     } else {
       document.removeEventListener('mousedown', handleClickOutside)
@@ -27,7 +41,7 @@ export default function Header(){
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
-  }, [showCategorias])
+  }, [showCategorias, showUserMenu])
 
   function handleDropdownClick() {
     setShowCategorias((v) => !v)
@@ -49,6 +63,22 @@ export default function Header(){
     if (e.key === 'Enter') {
       handleSearch(e as any)
     }
+  }
+
+  function handleLogout() {
+    localStorage.removeItem('user')
+    setUser(null)
+    setShowUserMenu(false)
+    router.push('/')
+  }
+
+  function getInitials(name: string) {
+    return name
+      .split(' ')
+      .map(n => n[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2)
   }
 
   return (
@@ -99,8 +129,47 @@ export default function Header(){
                 <span className="cart-badge">{getTotalItems()}</span>
               )}
             </Link>
-            <Link href="/login" className="nav-link">Perfil 👤</Link>
-              <span className="nav-link" style={{cursor:'pointer'}} onClick={() => setShowContacto(true)}>Contacto</span>
+            
+            {/* Avatar de usuario si está logueado, sino mostrar "Perfil" */}
+            {user ? (
+              <div className="user-avatar-container" ref={userMenuRef}>
+                <div 
+                  className="user-avatar" 
+                  onClick={() => setShowUserMenu(!showUserMenu)}
+                  title={user.name}
+                >
+                  {getInitials(user.name)}
+                </div>
+                {showUserMenu && (
+                  <div className="user-dropdown">
+                    <div className="user-dropdown-header">
+                      <div className="user-dropdown-name">{user.name}</div>
+                      <div className="user-dropdown-email">{user.email}</div>
+                    </div>
+                    <div className="user-dropdown-divider"></div>
+                    <Link href="/mi-perfil" className="user-dropdown-item" onClick={() => setShowUserMenu(false)}>
+                      👤 Mi Perfil
+                    </Link>
+                    <Link href="/mis-pedidos" className="user-dropdown-item" onClick={() => setShowUserMenu(false)}>
+                      📦 Mis Pedidos
+                    </Link>
+                    {user.isAdmin && (
+                      <Link href="/admin/pedidos" className="user-dropdown-item" onClick={() => setShowUserMenu(false)}>
+                        ⚙️ Admin Panel
+                      </Link>
+                    )}
+                    <div className="user-dropdown-divider"></div>
+                    <button className="user-dropdown-item logout-btn" onClick={handleLogout}>
+                      🚪 Cerrar Sesión
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link href="/login" className="nav-link">Perfil 👤</Link>
+            )}
+            
+            <span className="nav-link" style={{cursor:'pointer'}} onClick={() => setShowContacto(true)}>Contacto</span>
               {showContacto && (
                 <div style={{position:'fixed',top:0,left:0,width:'100vw',height:'100vh',background:'rgba(0,0,0,0.25)',zIndex:9999,display:'flex',alignItems:'center',justifyContent:'center'}} onClick={()=>setShowContacto(false)}>
                   <div style={{background:'#fff',borderRadius:16,padding:32,boxShadow:'0 4px 24px #c026d344',minWidth:320,textAlign:'center',fontFamily:'var(--font-title)',fontSize:'1.3rem',color:'#7c3aed',position:'relative'}} onClick={e=>e.stopPropagation()}>
