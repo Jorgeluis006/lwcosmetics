@@ -1,8 +1,31 @@
 'use client'
 import { useTheme } from '../context/ThemeContext'
 import './ThemeToggle.css'
+import { useEffect, useState } from 'react'
 
 export default function ThemeToggle() {
+  const [mounted, setMounted] = useState(false)
+  
+  // Solo renderizar el componente en el cliente
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+  
+  // Si no está montado (durante SSR), renderizar un placeholder
+  if (!mounted) {
+    return (
+      <div className="theme-toggle" style={{ opacity: 0.5 }}>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <circle cx="12" cy="12" r="5"></circle>
+        </svg>
+      </div>
+    )
+  }
+
+  return <ThemeToggleClient />
+}
+
+function ThemeToggleClient() {
   const { theme, toggleTheme } = useTheme()
 
   return (
