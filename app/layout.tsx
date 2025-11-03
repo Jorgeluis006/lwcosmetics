@@ -3,6 +3,7 @@ import './styles.css'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { CartProvider } from '../context/CartContext'
+import { ThemeProvider } from '../context/ThemeContext'
 
 export const metadata = {
   title: 'Lwcosmetics ',
@@ -56,15 +57,17 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <CartProvider>
-          <div className="app-container">
-            <Header />
-            <main className="main-content">
-              {children}
-            </main>
-            <Footer />
-          </div>
-        </CartProvider>
+        <ThemeProvider>
+          <CartProvider>
+            <div className="app-container">
+              <Header />
+              <main className="main-content">
+                {children}
+              </main>
+              <Footer />
+            </div>
+          </CartProvider>
+        </ThemeProvider>
       </body>
     </html>
   )

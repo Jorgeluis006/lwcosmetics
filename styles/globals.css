@@ -36,11 +36,33 @@ body {
     --font-accent: 'Miroles', 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
     --font-miroles: 'Miroles', 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
     
-    /* Nueva paleta de colores */
+    /* Paleta de colores - Modo Claro */
     --color-primary: #A67356;      /* Marrón oscuro */
     --color-secondary: #BA8E7A;    /* Marrón medio */
     --color-light: #EFDFCC;        /* Beige claro */
     --color-medium: #D9C5B4;       /* Beige medio */
+    --bg-color: #ffffff;           /* Fondo blanco */
+    --bg-secondary: #f9f9f9;       /* Fondo secundario */
+    --text-color: #A67356;         /* Texto principal */
+    --text-secondary: #666666;     /* Texto secundario */
+    --border-color: #e0e0e0;       /* Bordes */
+    --card-bg: #ffffff;            /* Fondo de tarjetas */
+    --shadow: rgba(166, 115, 86, 0.1);  /* Sombras */
+}
+
+/* Modo Oscuro */
+[data-theme="dark"] {
+    --color-primary: #D9A886;      /* Marrón más claro para oscuro */
+    --color-secondary: #C39B7E;    /* Marrón medio ajustado */
+    --color-light: #2d2520;        /* Fondo oscuro */
+    --color-medium: #3d3330;       /* Fondo medio oscuro */
+    --bg-color: #1a1614;           /* Fondo principal oscuro */
+    --bg-secondary: #2d2520;       /* Fondo secundario oscuro */
+    --text-color: #E8D5C4;         /* Texto claro */
+    --text-secondary: #b8a89a;     /* Texto secundario */
+    --border-color: #3d3330;       /* Bordes oscuros */
+    --card-bg: #2d2520;            /* Fondo de tarjetas oscuro */
+    --shadow: rgba(0, 0, 0, 0.3);  /* Sombras más oscuras */
 }
 
 html, body {
@@ -48,6 +70,9 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
   color: var(--color-primary);
   font-weight: 500;
   margin: 0;
@@ -1017,4 +1042,125 @@ body {
 .btn-remove-image:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+/* ========================================
+   ESTILOS PARA MODO OSCURO
+   ======================================== */
+
+/* Tarjetas de productos */
+.product-card, .modern-card {
+  background-color: var(--card-bg) !important;
+  border-color: var(--border-color) !important;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.product-card:hover, .modern-card:hover {
+  box-shadow: 0 8px 24px var(--shadow) !important;
+}
+
+/* Inputs y formularios */
+input, textarea, select {
+  background-color: var(--card-bg) !important;
+  color: var(--text-color) !important;
+  border-color: var(--border-color) !important;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--text-secondary) !important;
+}
+
+/* Header */
+.site-header {
+  background: var(--bg-color) !important;
+  border-bottom-color: var(--border-color) !important;
+  transition: background-color 0.3s ease;
+}
+
+.topbar {
+  background: var(--color-light) !important;
+  color: var(--text-color) !important;
+  transition: background-color 0.3s ease;
+}
+
+/* Nav links */
+.nav-link {
+  color: var(--text-color) !important;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--color-primary) !important;
+}
+
+/* Dropdown */
+.dropdown-list {
+  background-color: var(--card-bg) !important;
+  border-color: var(--border-color) !important;
+  box-shadow: 0 4px 12px var(--shadow) !important;
+}
+
+.dropdown-link {
+  color: var(--text-color) !important;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-link:hover {
+  background-color: var(--bg-secondary) !important;
+}
+
+/* Footer */
+.site-footer {
+  background: var(--color-light) !important;
+  color: var(--text-color) !important;
+  border-top-color: var(--border-color) !important;
+  transition: background-color 0.3s ease;
+}
+
+/* Botones */
+.btn, .btn-primary, .btn-secondary {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Contenedores */
+.container {
+  transition: background-color 0.3s ease;
+}
+
+/* Carrito */
+.carrito-item {
+  background-color: var(--card-bg) !important;
+  border-color: var(--border-color) !important;
+}
+
+/* Secciones */
+.hero, .categories, .category-header {
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
+  transition: background-color 0.3s ease;
+}
+
+/* Modales y overlays */
+[data-theme="dark"] .perfil-form,
+[data-theme="dark"] .login-form,
+[data-theme="dark"] .checkout-form {
+  background: var(--card-bg) !important;
+  color: var(--text-color) !important;
+  box-shadow: 0 4px 24px var(--shadow) !important;
+}
+
+/* User menu dropdown */
+.user-dropdown {
+  background-color: var(--card-bg) !important;
+  border-color: var(--border-color) !important;
+  box-shadow: 0 4px 12px var(--shadow) !important;
+}
+
+.user-dropdown a {
+  color: var(--text-color) !important;
+}
+
+.user-dropdown a:hover {
+  background-color: var(--bg-secondary) !important;
 }

@@ -1,0 +1,35 @@
+.theme-toggle {
+  background: transparent;
+  border: 2px solid var(--color-primary);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: var(--color-primary);
+  padding: 0;
+}
+
+.theme-toggle:hover {
+  background: var(--color-primary);
+  color: white;
+  transform: rotate(20deg) scale(1.1);
+}
+
+.theme-toggle:active {
+  transform: rotate(20deg) scale(0.95);
+}
+
+.theme-toggle svg {
+  transition: transform 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .theme-toggle {
+    width: 36px;
+    height: 36px;
+  }
+}

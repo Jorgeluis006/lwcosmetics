@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useState, useRef, useEffect } from 'react'
 import { useCart } from '../context/CartContext'
 import { useRouter, usePathname } from 'next/navigation'
+import ThemeToggle from './ThemeToggle'
 
 export default function Header(){
   const [showCategorias, setShowCategorias] = useState(false)
@@ -217,6 +218,9 @@ export default function Header(){
             ) : (
               <Link href="/login" className="nav-link">Perfil 👤</Link>
             )}
+            
+            {/* Toggle de tema */}
+            <ThemeToggle />
             
             <span className="nav-link" style={{cursor:'pointer'}} onClick={() => setShowContacto(true)}>Contacto</span>
               {showContacto && (
