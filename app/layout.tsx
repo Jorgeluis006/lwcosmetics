@@ -11,10 +11,6 @@ export const metadata = {
   },
 }
 
-// Optimizar performance
-export const dynamic = 'force-dynamic'
-export const revalidate = 60 // Revalidar cada 60 segundos
-
 export default function RootLayout({
   children,
 }: {
@@ -23,6 +19,12 @@ export default function RootLayout({
   return (
     <html lang="es">
       <head>
+        {/* Prevenir FOUC (Flash of Unstyled Content) */}
+        <style dangerouslySetInnerHTML={{
+          __html: `
+            html { visibility: visible; opacity: 1; }
+          `
+        }} />
         {/* Precargar fuente para mejorar performance */}
         <link 
           rel="preload" 
@@ -31,14 +33,12 @@ export default function RootLayout({
           type="font/ttf" 
           crossOrigin="anonymous"
         />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
       </head>
       <body>
         <CartProvider>
-          <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+          <div className="app-container">
             <Header />
-            <main style={{ flex: '1' }}>
+            <main className="main-content">
               {children}
             </main>
             <Footer />

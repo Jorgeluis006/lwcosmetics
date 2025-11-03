@@ -1,11 +1,31 @@
 /* Optimizaciones de performance */
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 /* Mejoras de rendimiento para navegación */
 html {
   scroll-behavior: smooth;
+  height: 100%;
+  visibility: visible !important;
+}
+
+body {
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Layout principal de la aplicación */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
 }
 
 /* Tipografía global - usa variables para poder cambiar la fuente en un solo lugar */
