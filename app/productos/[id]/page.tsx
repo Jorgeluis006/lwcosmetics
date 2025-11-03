@@ -3,24 +3,7 @@ import Link from 'next/link'
 import './detalle.css'
 import AddToCartButton from '../../../components/AddToCartButton'
 import ImageZoom from '../../../components/ImageZoom'
-
-// Función para formatear la descripción
-function formatDescription(description: string) {
-  if (!description) return ''
-  
-  // Convertir texto en negrita usando ** o palabras clave
-  let formatted = description
-    // Detectar patrones como "Descripción:", "Material o Ingredientes:", etc.
-    .replace(/^(Descripción|Material o Ingredientes|Beneficios|Modo de uso|Contenido|DESCRIPCION|MATERIAL O INGREDIENTES|BENEFICIOS|MODO DE USO|CONTENIDO):/gmi, '<strong>$1:</strong>')
-    // Detectar patrones al inicio de línea seguidos de dos puntos
-    .replace(/^([A-ZÁÉÍÓÚÑ][A-Za-záéíóúñ\s]+):/gm, '<strong>$1:</strong>')
-    // Convertir saltos de línea dobles en párrafos
-    .split('\n\n')
-    .map(paragraph => `<p>${paragraph.replace(/\n/g, '<br>')}</p>`)
-    .join('')
-  
-  return formatted
-}
+import ProductDescription from '../../../components/ProductDescription'
 
 // Habilitar caché agresivo
 export const revalidate = 3600; // Revalidar cada hora
@@ -96,10 +79,29 @@ export default async function ProductoDetalle({ params }: { params: { id: string
           <div className="producto-precio-detalle">
             <span className="precio-actual">${product.price.toLocaleString('es-CO')}</span>
           </div>
-          <div 
-            className="producto-descripcion-larga" 
-            dangerouslySetInnerHTML={{ __html: formatDescription(product.description) }}
-          />
+          
+          {/* Códigos del producto - MOVIDO ARRIBA */}
+          <div className="producto-codigos">
+            {(product as any).sku && (
+              <div className="codigo-item">
+                <strong>SKU:</strong> <span>{(product as any).sku}</span>
+              </div>
+            )}
+            {(product as any).barcode && (
+              <div className="codigo-item">
+                <strong>CÓDIGO DE BARRAS:</strong> <span>{(product as any).barcode}</span>
+              </div>
+            )}
+            {(product as any).reference && (
+              <div className="codigo-item">
+                <strong>REFERENCIA:</strong> <span>{(product as any).reference}</span>
+              </div>
+            )}
+          </div>
+
+          {/* Descripción con botón "Ver más" */}
+          <ProductDescription description={product.description} />
+          
           <div className="acciones-detalle">
             {typeof prod.stock === 'number' && prod.stock > 0 ? (
               <>
@@ -120,32 +122,6 @@ export default async function ProductoDetalle({ params }: { params: { id: string
                   300 3476918 Luisa Escobar
                 </a>
               </p>
-            )}
-          </div>
-          
-          {/* Códigos del producto */}
-          <div className="producto-codigos" style={{
-            marginTop: '20px',
-            padding: '16px',
-            background: '#f9f9f9',
-            borderRadius: '8px',
-            fontSize: '0.9rem',
-            color: '#666'
-          }}>
-            {(product as any).sku && (
-              <div style={{marginBottom: '8px'}}>
-                <strong style={{color: '#FFD700'}}>SKU:</strong> {(product as any).sku}
-              </div>
-            )}
-            {(product as any).barcode && (
-              <div style={{marginBottom: '8px'}}>
-                <strong style={{color: '#FFD700'}}>Código de barras:</strong> {(product as any).barcode}
-              </div>
-            )}
-            {(product as any).reference && (
-              <div>
-                <strong style={{color: '#FFD700'}}>Referencia:</strong> {(product as any).reference}
-              </div>
             )}
           </div>
         </div>

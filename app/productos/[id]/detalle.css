@@ -193,6 +193,67 @@
   margin-top: 0.3rem;
 }
 
+.producto-descripcion-container {
+  margin-top: 1.5rem;
+}
+
+.producto-descripcion-larga.collapsed {
+  max-height: 300px;
+  overflow: hidden;
+  position: relative;
+}
+
+.ver-mas-btn {
+  margin-top: 1rem;
+  padding: 10px 20px;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(166, 115, 86, 0.2);
+}
+
+.ver-mas-btn:hover {
+  background: var(--color-secondary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(166, 115, 86, 0.3);
+}
+
+/* Estilos para códigos del producto */
+.producto-codigos {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding: 16px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  border-left: 4px solid #FFD700;
+}
+
+.codigo-item {
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+.codigo-item:last-child {
+  margin-bottom: 0;
+}
+
+.codigo-item strong {
+  color: #FFD700;
+  font-weight: 700;
+  margin-right: 8px;
+  letter-spacing: 0.5px;
+}
+
+.codigo-item span {
+  color: #333;
+  font-weight: 500;
+}
+
 .acciones-detalle {
   margin-top: 1rem;
 }
