@@ -1,4 +1,5 @@
 import '../styles/globals.css'
+import './styles.css'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { CartProvider } from '../context/CartContext'
@@ -19,10 +20,30 @@ export default function RootLayout({
   return (
     <html lang="es">
       <head>
-        {/* Prevenir FOUC (Flash of Unstyled Content) */}
+        {/* Estilos críticos inline para prevenir FOUC */}
         <style dangerouslySetInnerHTML={{
           __html: `
-            html { visibility: visible; opacity: 1; }
+            * { 
+              box-sizing: border-box;
+              margin: 0;
+              padding: 0;
+            }
+            html, body {
+              height: 100%;
+              margin: 0;
+              padding: 0;
+              font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+              color: #A67356;
+              background: #fff;
+            }
+            .app-container {
+              display: flex;
+              flex-direction: column;
+              min-height: 100vh;
+            }
+            .main-content {
+              flex: 1;
+            }
           `
         }} />
         {/* Precargar fuente para mejorar performance */}
