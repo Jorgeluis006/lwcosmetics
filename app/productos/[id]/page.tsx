@@ -1,11 +1,23 @@
 import { getProductById, getAllProducts } from '../../../lib/db'
 import Link from 'next/link'
 import './detalle.css'
-import dynamicImport from 'next/dynamic'
-const AddToCartButton = dynamicImport(() => import('../../../components/AddToCartButton'), { ssr: false })
+import AddToCartButton from '../../../components/AddToCartButton'
 
-// Forzar render dinámico para evitar fallos de build si la DB no responde
-export const dynamic = 'force-dynamic';
+// Habilitar caché agresivo
+export const revalidate = 3600; // Revalidar cada hora
+
+// Pre-generar las páginas de productos más populares
+export async function generateStaticParams() {
+  try {
+    const products = await getAllProducts();
+    // Generar las primeras 50 páginas de productos
+    return products.slice(0, 50).map((product: any) => ({
+      id: String(product.id),
+    }));
+  } catch (e) {
+    return [];
+  }
+}
 
 export default async function ProductoDetalle({ params }: { params: { id: string } }) {
   let product: any = null;
@@ -61,7 +73,12 @@ export default async function ProductoDetalle({ params }: { params: { id: string
           <div className="galeria-imagenes">
             {images.map((img: string, idx: number) => (
               <div className="imagen-principal" key={idx} style={{ marginBottom: 12 }}>
-                <img src={img} alt={product.name + ' ' + (idx + 1)} />
+                <img 
+                  src={img} 
+                  alt={product.name + ' ' + (idx + 1)}
+                  loading={idx === 0 ? 'eager' : 'lazy'}
+                  decoding="async"
+                />
               </div>
             ))}
           </div>
@@ -154,9 +171,14 @@ export default async function ProductoDetalle({ params }: { params: { id: string
           <h2>Productos relacionados</h2>
           <div className="productos-grid-relacionados">
             {relatedProducts.map((relProduct: any) => (
-              <Link href={`/productos/${relProduct.id}`} key={relProduct.id} className="producto-card-relacionado">
+              <Link href={`/productos/${relProduct.id}`} key={relProduct.id} className="producto-card-relacionado" prefetch={true}>
                 <div className="img-wrap-relacionado">
-                  <img src={relProduct.imageUrl} alt={relProduct.name} />
+                  <img 
+                    src={relProduct.imageUrl} 
+                    alt={relProduct.name}
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </div>
                 <h3>{relProduct.name}</h3>
                 <p className="precio-relacionado">${relProduct.price.toLocaleString('es-CO')}</p>

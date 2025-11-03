@@ -126,7 +126,7 @@ export default function MisPedidosPage() {
     <div className="container" style={{ padding: '40px 20px', maxWidth: '1200px', margin: '0 auto' }}>
       <div style={{ marginBottom: '30px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <h1 style={{ margin: 0 }}>Mis Pedidos</h1>
-        <Link href="/mi-perfil" className="btn btn-secondary">
+        <Link href="/mi-perfil" className="btn btn-secondary" prefetch={true}>
           ← Volver al Perfil
         </Link>
       </div>
@@ -142,7 +142,7 @@ export default function MisPedidosPage() {
           <p style={{ color: '#6b7280', marginBottom: '20px' }}>
             Explora nuestros productos y realiza tu primer pedido
           </p>
-          <Link href="/productos" className="btn btn-primary">
+          <Link href="/productos" className="btn btn-primary" prefetch={true}>
             Ver Productos
           </Link>
         </div>
@@ -232,6 +232,8 @@ export default function MisPedidosPage() {
                       <img 
                         src={item.product.imageUrl} 
                         alt={item.product.name}
+                        loading="lazy"
+                        decoding="async"
                         style={{
                           width: '50px',
                           height: '50px',

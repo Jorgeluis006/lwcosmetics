@@ -3,6 +3,9 @@ import './styles.css'
 import Carousel from '../components/Carousel';
 import { categories } from '../types/Product'
 
+// Habilitar caché para la página principal
+export const revalidate = 3600; // Revalidar cada hora
+
 export default function Home() {
   return (
     <main>
@@ -28,9 +31,19 @@ export default function Home() {
               unas: 'https://www.somosmamas.com.ar/wp-content/uploads/2022/04/maquillaje-de-unas-lilas.jpg',
             }
             return (
-              <Link href={`/productos/categoria/${key}`} key={key} className="category-card">
+              <Link 
+                href={`/productos/categoria/${key}`} 
+                key={key} 
+                className="category-card"
+                prefetch={true}
+              >
                 <div className="category-image">
-                  <img src={images[key]} alt={name as string} />
+                  <img 
+                    src={images[key]} 
+                    alt={name as string}
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </div>
                 <h3>{name as string}</h3>
               </Link>

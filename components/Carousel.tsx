@@ -20,7 +20,13 @@ export default function Carousel() {
   return (
     <div className="carousel">
       <button className="carousel-btn left" onClick={prevSlide}>&lt;</button>
-      <img src={images[current]} alt={`Slide ${current + 1}`} className="carousel-img" />
+      <img 
+        src={images[current]} 
+        alt={`Slide ${current + 1}`} 
+        className="carousel-img"
+        loading="eager"
+        decoding="async"
+      />
       <button className="carousel-btn right" onClick={nextSlide}>&gt;</button>
       <div className="carousel-indicators">
         {images.map((_, idx) => (

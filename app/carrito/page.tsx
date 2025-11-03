@@ -32,12 +32,17 @@ export default function CarritoPage() {
         <div className="carrito-productos">
           {cart.map((item, index) => (
             <div key={`${item.id}-${item.selectedColor || 'default'}-${index}`} className="carrito-item">
-              <Link href={`/productos/${item.id}`} className="item-imagen">
-                <img src={item.imageUrl} alt={item.name} />
+              <Link href={`/productos/${item.id}`} className="item-imagen" prefetch={true}>
+                <img 
+                  src={item.imageUrl} 
+                  alt={item.name}
+                  loading="lazy"
+                  decoding="async"
+                />
               </Link>
 
               <div className="item-info">
-                <Link href={`/productos/${item.id}`}>
+                <Link href={`/productos/${item.id}`} prefetch={true}>
                   <h3>{item.name}</h3>
                 </Link>
                 {item.selectedColor && (
