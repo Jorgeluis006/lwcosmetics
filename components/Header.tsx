@@ -220,9 +220,7 @@ export default function Header(){
               </div>
             )}
 
-            {/* Menú desktop (se oculta en móvil) */}
-            <div className="desktop-nav">
-            {/* <Link href="/productos" className="nav-link">Productos</Link> */}
+            {/* Menú desktop - original sin cambios */}
             <div className="nav-dropdown" ref={dropdownRef}>
               <span className="nav-link" onClick={handleDropdownClick} style={{cursor:'pointer'}}>
                 Categorías ▾
@@ -244,7 +242,6 @@ export default function Header(){
             </Link>
             
             <span className="nav-link" style={{cursor:'pointer'}} onClick={() => setShowContacto(true)}>Contacto</span>
-            </div>
             
             {/* Avatar de usuario si está logueado, sino mostrar "Perfil" */}
             {user ? (

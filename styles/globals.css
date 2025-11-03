@@ -1151,12 +1151,11 @@ body {
     display: flex;
   }
 
-  .desktop-nav {
-    display: none;
-  }
-
-  .perfil-link {
-    display: none;
+  /* Ocultar el menú desktop en móvil */
+  .nav-dropdown,
+  .nav-link.cart-link,
+  .nav-link:not(.perfil-link) {
+    display: none !important;
   }
 }
 
