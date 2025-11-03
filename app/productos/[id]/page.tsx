@@ -2,6 +2,7 @@ import { getProductById, getAllProducts } from '../../../lib/db'
 import Link from 'next/link'
 import './detalle.css'
 import AddToCartButton from '../../../components/AddToCartButton'
+import ImageZoom from '../../../components/ImageZoom'
 
 // Habilitar caché agresivo
 export const revalidate = 3600; // Revalidar cada hora
@@ -70,18 +71,7 @@ export default async function ProductoDetalle({ params }: { params: { id: string
       {/* Imagen principal y detalles */}
       <div className="detalle-content">
         <div className="galeria">
-          <div className="galeria-imagenes">
-            {images.map((img: string, idx: number) => (
-              <div className="imagen-principal" key={idx} style={{ marginBottom: 12 }}>
-                <img 
-                  src={img} 
-                  alt={product.name + ' ' + (idx + 1)}
-                  loading={idx === 0 ? 'eager' : 'lazy'}
-                  decoding="async"
-                />
-              </div>
-            ))}
-          </div>
+          <ImageZoom images={images} productName={product.name} />
         </div>
         <div className="producto-info-detalle">
           <h1 className="producto-nombre">{product.name}</h1>
