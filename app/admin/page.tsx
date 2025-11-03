@@ -232,7 +232,6 @@ export default function AdminPage() {
           >
             {showForm ? 'Cancelar' : '+ Agregar Producto'}
           </button>
-          <Link href="/admin/orders" className="btn btn-secondary">Ver pedidos</Link>
         </div>
       </div>
 
