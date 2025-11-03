@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import { getAllCategories } from '../../../../lib/db';
-import dynamicImport from 'next/dynamic'
-const ProductCard = dynamicImport(() => import('../../../../components/ProductCard'), { ssr: false })
+import ProductCard from '../../../../components/ProductCard'
 
 // Forzar render dinámico para evitar fallos de build si la DB no responde
 export const dynamic = 'force-dynamic';
+export const revalidate = 0; // Deshabilitar caché
 
 export default async function ProductsByCategory({ params }: { params: { category: string } }) {
   let categories: any[] = [];
@@ -27,9 +27,15 @@ export default async function ProductsByCategory({ params }: { params: { categor
       </div>
 
       <div className="products-grid">
-        {category.products.map((product: any) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
+        {category.products && category.products.length > 0 ? (
+          category.products.map((product: any) => (
+            <ProductCard key={product.id} product={product} />
+          ))
+        ) : (
+          <p style={{textAlign: 'center', padding: '40px 0', color: '#666'}}>
+            No hay productos en esta categoría.
+          </p>
+        )}
       </div>
     </div>
   )

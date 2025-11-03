@@ -1,11 +1,11 @@
 
 import Link from 'next/link';
 import { getAllProducts } from '../../lib/db';
-import dynamicImport from 'next/dynamic'
-const ProductCard = dynamicImport(() => import('../../components/ProductCard'), { ssr: false })
+import ProductCard from '../../components/ProductCard'
 
 // Forzar renderizado dinámico para evitar fallos de build si la DB no está accesible
 export const dynamic = 'force-dynamic';
+export const revalidate = 0; // Deshabilitar caché
 
 export default async function ProductosPage({
   searchParams,
