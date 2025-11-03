@@ -2,7 +2,7 @@
   position: relative;
   width: 100%;
   max-width: 100%;
-  height: auto;
+  height: 300px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,9 +14,10 @@
 
 .carousel-img {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
-  object-fit: contain;
+  object-fit: cover;
+  object-position: center;
 }
 
 .carousel-btn {
@@ -25,15 +26,15 @@
 
 /* Responsive para tablets */
 @media (max-width: 768px) {
-  .carousel-img {
-    object-fit: contain;
+  .carousel {
+    height: 250px;
   }
 }
 
 /* Responsive para móviles */
 @media (max-width: 480px) {
-  .carousel-img {
-    object-fit: contain;
+  .carousel {
+    height: 200px;
   }
   
   .carousel-indicators {
