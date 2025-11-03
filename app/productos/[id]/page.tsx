@@ -80,28 +80,7 @@ export default async function ProductoDetalle({ params }: { params: { id: string
             <span className="precio-actual">${product.price.toLocaleString('es-CO')}</span>
           </div>
           
-          {/* Códigos del producto - MOVIDO ARRIBA */}
-          <div className="producto-codigos">
-            {(product as any).sku && (
-              <div className="codigo-item">
-                <strong>SKU:</strong> <span>{(product as any).sku}</span>
-              </div>
-            )}
-            {(product as any).barcode && (
-              <div className="codigo-item">
-                <strong>CÓDIGO DE BARRAS:</strong> <span>{(product as any).barcode}</span>
-              </div>
-            )}
-            {(product as any).reference && (
-              <div className="codigo-item">
-                <strong>REFERENCIA:</strong> <span>{(product as any).reference}</span>
-              </div>
-            )}
-          </div>
-
-          {/* Descripción con botón "Ver más" */}
-          <ProductDescription description={product.description} />
-          
+          {/* Botón Agregar al carrito y Stock */}
           <div className="acciones-detalle">
             {typeof prod.stock === 'number' && prod.stock > 0 ? (
               <>
@@ -124,8 +103,32 @@ export default async function ProductoDetalle({ params }: { params: { id: string
               </p>
             )}
           </div>
+          
+          {/* Códigos del producto */}
+          <div className="producto-codigos">
+            {(product as any).sku && (
+              <div className="codigo-item">
+                <strong>SKU:</strong> <span>{(product as any).sku}</span>
+              </div>
+            )}
+            {(product as any).barcode && (
+              <div className="codigo-item">
+                <strong>CÓDIGO DE BARRAS:</strong> <span>{(product as any).barcode}</span>
+              </div>
+            )}
+            {(product as any).reference && (
+              <div className="codigo-item">
+                <strong>REFERENCIA:</strong> <span>{(product as any).reference}</span>
+              </div>
+            )}
+          </div>
+
+          {/* Descripción con botón "Ver más" */}
+          <ProductDescription description={product.description} />
         </div>
       </div>
+
+      {/* Beneficios */}
 
       {/* Beneficios */}
       <div className="beneficios">
