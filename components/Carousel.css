@@ -9,14 +9,14 @@
   overflow: hidden;
   margin: 0;
   padding: 0;
+  background: transparent;
 }
 
 .carousel-img {
   width: 100%;
   height: auto;
-  max-height: 500px;
-  object-fit: cover;
   display: block;
+  object-fit: contain;
 }
 
 .carousel-btn {
@@ -26,14 +26,14 @@
 /* Responsive para tablets */
 @media (max-width: 768px) {
   .carousel-img {
-    max-height: 350px;
+    object-fit: contain;
   }
 }
 
 /* Responsive para móviles */
 @media (max-width: 480px) {
   .carousel-img {
-    max-height: 250px;
+    object-fit: contain;
   }
   
   .carousel-indicators {
