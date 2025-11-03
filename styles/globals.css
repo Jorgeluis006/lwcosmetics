@@ -30,6 +30,9 @@ html, body {
   text-rendering: optimizeLegibility;
   color: var(--color-primary);
   font-weight: 500;
+  margin: 0;
+  padding: 0;
+  height: 100%;
 }
 
 /* Títulos por defecto con fuente de títulos */
@@ -715,6 +718,8 @@ body {
   text-align: center;
   font-size: 1.08rem;
   border-top: 2px solid var(--color-secondary);
+  margin-top: auto;
+  width: 100%;
 }
 .footer-social {
   margin-top: 12px;
