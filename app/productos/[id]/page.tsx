@@ -4,6 +4,24 @@ import './detalle.css'
 import AddToCartButton from '../../../components/AddToCartButton'
 import ImageZoom from '../../../components/ImageZoom'
 
+// Función para formatear la descripción
+function formatDescription(description: string) {
+  if (!description) return ''
+  
+  // Convertir texto en negrita usando ** o palabras clave
+  let formatted = description
+    // Detectar patrones como "Descripción:", "Material o Ingredientes:", etc.
+    .replace(/^(Descripción|Material o Ingredientes|Beneficios|Modo de uso|Contenido|DESCRIPCION|MATERIAL O INGREDIENTES|BENEFICIOS|MODO DE USO|CONTENIDO):/gmi, '<strong>$1:</strong>')
+    // Detectar patrones al inicio de línea seguidos de dos puntos
+    .replace(/^([A-ZÁÉÍÓÚÑ][A-Za-záéíóúñ\s]+):/gm, '<strong>$1:</strong>')
+    // Convertir saltos de línea dobles en párrafos
+    .split('\n\n')
+    .map(paragraph => `<p>${paragraph.replace(/\n/g, '<br>')}</p>`)
+    .join('')
+  
+  return formatted
+}
+
 // Habilitar caché agresivo
 export const revalidate = 3600; // Revalidar cada hora
 
@@ -78,7 +96,10 @@ export default async function ProductoDetalle({ params }: { params: { id: string
           <div className="producto-precio-detalle">
             <span className="precio-actual">${product.price.toLocaleString('es-CO')}</span>
           </div>
-          <p className="producto-descripcion-larga">{product.description}</p>
+          <div 
+            className="producto-descripcion-larga" 
+            dangerouslySetInnerHTML={{ __html: formatDescription(product.description) }}
+          />
           <div className="acciones-detalle">
             {typeof prod.stock === 'number' && prod.stock > 0 ? (
               <>

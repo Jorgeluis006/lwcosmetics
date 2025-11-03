@@ -166,9 +166,31 @@
 }
 
 .producto-descripcion-larga {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  color: var(--text-secondary);
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #000000;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.producto-descripcion-larga p {
+  margin-bottom: 1rem;
+  color: #000000;
+}
+
+.producto-descripcion-larga strong {
+  font-weight: 700;
+  color: #000000;
+  display: block;
+  margin-top: 1.2rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.05rem;
+}
+
+.producto-descripcion-larga br {
+  display: block;
+  content: "";
+  margin-top: 0.3rem;
 }
 
 .acciones-detalle {
