@@ -32,5 +32,17 @@ export async function getAllCategories() {
   });
 }
 
+export async function getCategoryByName(name: string) {
+  return await prisma.category.findFirst({
+    where: { 
+      name: {
+        equals: name,
+        mode: 'insensitive' // Case insensitive
+      }
+    },
+    include: { products: true }
+  });
+}
+
 // Cerrar Prisma al terminar el proceso
 export { prisma };

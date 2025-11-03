@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getAllCategories } from '../../../../lib/db';
+import { getCategoryByName } from '../../../../lib/db';
 import ProductCard from '../../../../components/ProductCard'
 
 // Forzar render dinámico para evitar fallos de build si la DB no responde
@@ -7,16 +7,18 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0; // Deshabilitar caché
 
 export default async function ProductsByCategory({ params }: { params: { category: string } }) {
-  let categories: any[] = [];
+  let category: any = null;
   try {
-    categories = await getAllCategories();
+    // Usar la nueva función optimizada que solo busca UNA categoría
+    category = await getCategoryByName(params.category);
   } catch (e) {
-    categories = [];
+    console.error('Error loading category:', e);
   }
-  const category = categories.find((cat: any) => cat.name.toLowerCase() === params.category.toLowerCase());
+  
   if (!category) {
     return <div className="container">No pudimos cargar la categoría ahora mismo. Intenta más tarde.</div>;
   }
+  
   return (
     <div className="container">
       <div className="category-header">
