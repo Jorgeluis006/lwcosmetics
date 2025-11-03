@@ -151,10 +151,10 @@ export default function Header(){
               </span>
               {showCategorias && (
                 <ul className="dropdown-list">
-                  <li><Link href="/productos/categoria/ojos" className="dropdown-link" onClick={handleOptionClick}>Ojos</Link></li>
-                  <li><Link href="/productos/categoria/labios" className="dropdown-link" onClick={handleOptionClick}>Labios</Link></li>
-                  <li><Link href="/productos/categoria/rostro" className="dropdown-link" onClick={handleOptionClick}>Rostro</Link></li>
-                  <li><Link href="/productos/categoria/unas" className="dropdown-link" onClick={handleOptionClick}>Uñas</Link></li>
+                  <li><Link href="/productos/categoria/ojos" className="dropdown-link" onClick={handleOptionClick} prefetch={true}>Ojos</Link></li>
+                  <li><Link href="/productos/categoria/labios" className="dropdown-link" onClick={handleOptionClick} prefetch={true}>Labios</Link></li>
+                  <li><Link href="/productos/categoria/rostro" className="dropdown-link" onClick={handleOptionClick} prefetch={true}>Rostro</Link></li>
+                  <li><Link href="/productos/categoria/unas" className="dropdown-link" onClick={handleOptionClick} prefetch={true}>Uñas</Link></li>
                 </ul>
               )}
             </div>

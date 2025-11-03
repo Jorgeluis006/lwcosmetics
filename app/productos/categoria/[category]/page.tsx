@@ -2,9 +2,24 @@ import Link from 'next/link';
 import { getCategoryByName } from '../../../../lib/db';
 import ProductCard from '../../../../components/ProductCard'
 
-// Forzar render dinámico para evitar fallos de build si la DB no responde
-export const dynamic = 'force-dynamic';
-export const revalidate = 0; // Deshabilitar caché
+// Habilitar caché agresivo para carga instantánea
+export const dynamic = 'force-static';
+export const revalidate = 3600; // Revalidar cada hora
+
+// Generar todas las páginas de categorías en build time
+export async function generateStaticParams() {
+  // Lista de categorías conocidas
+  return [
+    { category: 'ojos' },
+    { category: 'labios' },
+    { category: 'rostro' },
+    { category: 'uñas' },
+    { category: 'Ojos' },
+    { category: 'Labios' },
+    { category: 'Rostro' },
+    { category: 'Uñas' },
+  ];
+}
 
 export default async function ProductsByCategory({ params }: { params: { category: string } }) {
   let category: any = null;

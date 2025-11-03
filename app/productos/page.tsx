@@ -3,9 +3,8 @@ import Link from 'next/link';
 import { getAllProducts } from '../../lib/db';
 import ProductCard from '../../components/ProductCard'
 
-// Forzar renderizado dinámico para evitar fallos de build si la DB no está accesible
-export const dynamic = 'force-dynamic';
-export const revalidate = 0; // Deshabilitar caché
+// Habilitar caché para carga instantánea
+export const revalidate = 3600; // Revalidar cada hora
 
 export default async function ProductosPage({
   searchParams,

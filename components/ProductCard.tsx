@@ -60,7 +60,13 @@ export default function ProductCard({ product }: Props) {
   return (
     <div className="product-card modern-card">
       <div className="product-img-wrap">
-        <img src={product.imageUrl} alt={product.name} className="product-img" />
+        <img 
+          src={product.imageUrl} 
+          alt={product.name} 
+          className="product-img"
+          loading="lazy"
+          decoding="async"
+        />
         <button className="fav-btn" title="Favorito">♡</button>
       </div>
       <div className="product-info">
