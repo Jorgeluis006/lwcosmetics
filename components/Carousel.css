@@ -3,79 +3,37 @@
   width: 100%;
   max-width: 100%;
   height: auto;
-  min-height: 300px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--color-light) 0%, var(--color-medium) 100%);
   overflow: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 .carousel-img {
   width: 100%;
   height: auto;
-  max-height: 70vh;
-  object-fit: contain;
-  border-radius: 0;
+  max-height: 500px;
+  object-fit: cover;
   display: block;
 }
 
 .carousel-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: var(--color-primary);
-  color: #fff;
-  border: 2px solid var(--color-light);
-  font-size: 1.5rem;
-  padding: 0.75rem 1rem;
-  border-radius: 50%;
-  cursor: pointer;
-  z-index: 10;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(166, 115, 86, 0.4);
-}
-.carousel-btn.left { left: 1rem; }
-.carousel-btn.right { right: 1rem; }
-.carousel-btn:hover { 
-  background: var(--color-secondary);
-  border-color: var(--color-primary);
-  transform: translateY(-50%) scale(1.15);
-  box-shadow: 0 6px 16px rgba(166, 115, 86, 0.6);
+  display: none; /* Ocultar las flechas */
 }
 
 /* Responsive para tablets */
 @media (max-width: 768px) {
-  .carousel {
-    min-height: 250px;
-  }
-  
   .carousel-img {
-    max-height: 50vh;
+    max-height: 350px;
   }
-  
-  .carousel-btn {
-    font-size: 1.2rem;
-    padding: 0.5rem 0.8rem;
-  }
-  
-  .carousel-btn.left { left: 0.5rem; }
-  .carousel-btn.right { right: 0.5rem; }
 }
 
 /* Responsive para móviles */
 @media (max-width: 480px) {
-  .carousel {
-    min-height: 200px;
-  }
-  
   .carousel-img {
-    max-height: 40vh;
-  }
-  
-  .carousel-btn {
-    font-size: 1rem;
-    padding: 0.4rem 0.7rem;
+    max-height: 250px;
   }
   
   .carousel-indicators {
