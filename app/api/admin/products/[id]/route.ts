@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
+import { revalidatePath } from 'next/cache';
 
 const prisma = new PrismaClient();
 
@@ -31,6 +32,17 @@ export async function PUT(
       include: { category: true }
     });
 
+    // Revalidar las rutas afectadas
+    revalidatePath('/productos');
+    revalidatePath('/admin');
+    revalidatePath(`/productos/${id}`);
+    
+    // Revalidar la página de la categoría
+    if (product?.category?.name) {
+      revalidatePath(`/productos/categoria/${product.category.name}`);
+      revalidatePath(`/productos/categoria/${product.category.name.toLowerCase()}`);
+    }
+
     return NextResponse.json(product);
   } catch (error) {
     return NextResponse.json(
@@ -50,9 +62,25 @@ export async function DELETE(
   try {
     const id = parseInt(params.id);
 
+    // Obtener el producto antes de eliminarlo para saber su categoría
+    const product = await prisma.product.findUnique({
+      where: { id },
+      include: { category: true }
+    });
+
     await prisma.product.delete({
       where: { id }
     });
+
+    // Revalidar las rutas afectadas
+    revalidatePath('/productos');
+    revalidatePath('/admin');
+    
+    // Revalidar la página de la categoría específica si existe
+    if (product?.category?.name) {
+      revalidatePath(`/productos/categoria/${product.category.name}`);
+      revalidatePath(`/productos/categoria/${product.category.name.toLowerCase()}`);
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {
